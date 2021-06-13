@@ -1,0 +1,271 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Sabong International PH</title>
+    
+    <meta name="title" content="Sabong International PH">
+    <meta name="description" content="Premium Cockfighting App (PAGCOR Licensed)">
+    <meta name="author" content="VCCI">
+
+    <meta property="og:title" content="Sabong International PH">
+    <meta property="og:type" content="website">
+    <meta property="og:description" content="Premium Cockfighting App (PAGCOR Licensed)">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css" integrity="sha512-NmLkDIU1C/C88wi324HBc+S2kLhi08PN5GDeUVVVC/BVt/9Izdsc9SVeVfA1UZbY3sHUlDSyRXhCzHfr6hmPPw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Catamaran:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/90a69278a2.js" crossorigin="anonymous"></script>
+    <style type="text/css">
+        [v-cloak]{
+            display: none;
+        }
+        body{
+            background-color: #222;
+            font-family: 'Catamaran', sans-serif;
+        }
+        a{
+            color:inherit;
+        }
+        .catamaran{
+            font-family: 'Catamaran', sans-serif;
+        }
+        .wrapper{
+            max-width: 400px;
+            margin:30px auto;
+            color:#fff;
+            text-align: center;
+            
+        }
+        h1{
+            font-family: 'Catamaran', sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;;
+        }
+        .domain-item-wr{
+            border-radius: 10px;
+            background-color: #ffc526;
+            border-color: #ffc526;
+            color: #222;
+            margin:0 10px 1rem;
+            overflow: hidden;
+            
+        }
+        .domain-item-wr a{
+            text-decoration: none;
+            display: block;
+            padding-top:1px;
+        }
+        .domain-name{
+            text-decoration: none;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            margin:.5rem 0 .25rem 0;
+            
+        }
+        .health-check{
+            background: #dcad2e;
+            padding: 5px 0;
+        }
+        .domain-link{
+            margin:0 0 .5rem;
+        }
+        .text-success{
+            color:#0b5f1e;
+        }
+        .text-danger{
+            color:#bd1b2b;
+        }
+        .disclaimer{
+            line-height: 1.2rem;
+            padding:0 1rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="app" class="wrapper">
+        <div v-if="false">
+            <i class="fas fa-spinner fa-spin"></i>
+            Loading
+        </div>
+        <div  v-cloak>
+            <h1>
+                Select Domains
+            </h1> 
+            <div class="disclaimer">
+                Click on any of the yellow boxes that is available.
+            </div>
+            <div>
+                <div v-for="domain in domains" :key="domain.name"
+                    class="domain-item-wr">
+                    <a :href="domain.url">
+                        <div class="domain-name">{{ domain.name }}</div>
+                        <div class="health-check"> 
+                            <div v-show="availabilityStatus(domain) == 0">
+                                <i class="fas fa-spinner fa-spin"></i>
+                                Checking link..
+                            </div>
+                            <div v-show="availabilityStatus(domain) == 1" class="text-success">
+                                <i class="fas fa-check"></i>
+                                Available
+                            </div>
+                            <div v-show="availabilityStatus(domain) == 2" class="text-danger">
+                                <i class="fas fa-times"></i>
+                                Not Available
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div> 
+    </div>
+
+    <script>
+        window.domains = [
+            {
+                name: "SabongInternational.com",
+                url: "https://sabonginternational.com",
+                health_check: {
+                    api: {
+                        url: "https://sabonginternational.com/health",
+                        status: 0
+                    },
+                    static: {
+                        url: "https://static.sabonginternational.com/health.htm",
+                        status: 0
+                    }
+                }
+            },
+            {
+                name: "SbngInt",
+                url: "https://sabonginternational.com",
+                health_check: {
+                    api: {
+                        url: "https://sabonginternational.com/health",
+                        status: 0
+                    },
+                    static: {
+                        url: "https://static.sabonginternational.com/health.htm",
+                        status: 0
+                    }
+                }
+            },
+            {
+                name: "ColorPerya",
+                url: "https://colorperya.com",
+                health_check: {
+                    api: {
+                        url: "https://colorperya.com/health",
+                        status: 0
+                    },
+                    static: {
+                        url: "https://static.colorperya.com/health.htm",
+                        status: 0
+                    }
+                }
+            },
+            {
+                name: "PeryaPH.com",
+                url: "https://peryaph.com",
+                health_check: {
+                    api: {
+                        url: "https://peryaph.com/health",
+                        status: 0
+                    },
+                    static: {
+                        url: "https://static.peryaph.com/health.htm",
+                        status: 0
+                    }
+                }
+            },
+            {
+                name: "PartiPerya.com",
+                url: "https://partiperya.com",
+                health_check: {
+                    api: {
+                        url: "https://2partiperya.com/health",
+                        status: 0
+                    },
+                    static: {
+                        url: "https://2static.partiperya.com/health.htm",
+                        status: 0
+                    }
+                }
+            },
+            {
+                name: "Grabmanok.com",
+                url: "https://grabmanok.com",
+                health_check: {
+                    api: {
+                        url: "https://grabmanok.com/health",
+                        status: 0
+                    },
+                    static: {
+                        url: "https://static.grabmanok.com/health.htm",
+                        status: 0
+                    }
+                }
+            }
+        ]
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.14/vue.min.js" integrity="sha512-XdUZ5nrNkVySQBnnM5vzDqHai823Spoq1W3pJoQwomQja+o4Nw0Ew1ppxo5bhF2vMug6sfibhKWcNJsG8Vj9tg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                domains: [],
+                axiosInstance: null
+            },
+            mounted(){
+                this.domains = window.domains;
+                this.axiosInstance = axios.create({ timeout: 5000 });
+                this.runHealthCheck();
+            },
+            methods: {
+                runHealthCheck(){
+                    for(var i in this.domains){
+                        this.sendRequest(this.domains[i].health_check.api.url, i).then((data) => {
+                            this.domains[data.index].health_check.api.status = 1;
+                        }).catch((data) => {
+                            this.domains[data.index].health_check.api.status = 2;
+                        });
+
+                        this.sendRequest(this.domains[i].health_check.static.url, i).then((data) => {
+                            this.domains[data.index].health_check.static.status = 1;
+                        }).catch((data) => {
+                            this.domains[data.index].health_check.static.status = 2;
+                        });
+                    }
+                },
+                sendRequest(url, index){
+                    let urlWithHash = url + "?t=" + Date.now()
+                    return this.axiosInstance.get(urlWithHash).then((response) => { 
+                        console.log(urlWithHash, index);
+                        return Promise.resolve({ response: response, index: index }); 
+                    }).catch((exception) => {
+                        return Promise.reject({ exception: exception, index: index });
+                    });
+                },
+                availabilityStatus(domain){
+                    let apiStatus = domain.health_check.api.status;
+                    let staticStatus = domain.health_check.static.status;
+                    if(apiStatus == 0 && staticStatus == 0){
+                        return 0; //loading
+                    }else if(apiStatus == 1 && staticStatus == 1){
+                        return 1; //succesful
+                    }else{
+                        return 2;
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+</html>
