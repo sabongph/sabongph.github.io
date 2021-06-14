@@ -294,11 +294,11 @@
                 this.domains = window.domains;
                 this.urlHash = window.location.hash;
                 this.axiosInstance = axios.create({ timeout: 5000 });
-                this.appendUrlBasedOnHash();
                 this.loadStoredDomain();
                 if(this.storedDomain){
                     this.domains.unshift(this.storedDomain);
                 }
+                this.appendUrlBasedOnHash();
                 //this.runAllHealthCheck();
                 this.getFirstAvailableDomain();
             },
