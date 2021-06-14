@@ -170,6 +170,7 @@
                 name: "SabongInternational.com",
                 domain: "sabonginternational.com",
                 url: "https://sabonginternational.com",
+                redirectUrl: "",
                 health_check: {
                     api: {
                         url: "https://sabonginternational.com/health",
@@ -185,6 +186,7 @@
                 name: "SbngInt.com",
                 domain: "sbngint.com",
                 url: "https://sbngint.com",
+                redirectUrl: "",
                 health_check: {
                     api: {
                         url: "https://sbngint.com/health",
@@ -200,6 +202,7 @@
                 name: "ColorPerya",
                 domain: "colorperya.com",
                 url: "https://colorperya.com",
+                redirectUrl: "",
                 health_check: {
                     api: {
                         url: "https://colorperya.com/health",
@@ -215,6 +218,7 @@
                 name: "PeryaPH.com",
                 domain: "peryaph.com",
                 url: "https://peryaph.com",
+                redirectUrl: "",
                 health_check: {
                     api: {
                         url: "https://peryaph.com/health",
@@ -230,6 +234,7 @@
                 name: "PartiPerya.com",
                 domain: "partiperya.com",
                 url: "https://partiperya.com",
+                redirectUrl: "",
                 health_check: {
                     api: {
                         url: "https://partiperya.com/health",
@@ -245,6 +250,7 @@
                 name: "Grabmanok.com",
                 domain: "grabmanok.com",
                 url: "https://grabmanok.com",
+                redirectUrl: "",
                 health_check: {
                     api: {
                         url: "https://grabmanok.com/health",
@@ -272,7 +278,7 @@
                     prev: "Checking your previously loaded server",
                     searching: "Searching for fastest server",
                     server: "Checking server #",
-                    found: "Server found. Redirecting..",
+                    found: "Server found. Redirecting to ",
                     failed: "No reachable server found"
                 },
 
@@ -286,7 +292,8 @@
                 checkerMessage: '',
 
                 storedDomain: null,
-                firstAvailableDomain: null
+                firstAvailableDomain: null,
+                localStorageKey: 'last_used_domain'
             },
             mounted(){
                 this.changeStatus(this.statusMessages.init, 0);
@@ -316,7 +323,9 @@
                         this.firstAvailableDomain = this.domains[data.index];
                         this.changeStatus(this.statusMessages.found, 1);
                         this.saveDomain(this.firstAvailableDomain);
-                        this.redirectToAvailableDomain();
+                        setTimeout(() => {
+                            this.redirectToAvailableDomain();
+                        }, 500);
                     }).catch(() => {
                         this.changeStatus(this.statusMessages.failed, 2);
                     })
@@ -351,10 +360,10 @@
                     this.checkerIterationStatus = statusNumber;
                 },
                 redirectToAvailableDomain(){
-                    window.location.href = this.firstAvailableDomain.url;
+                    window.location.href = this.firstAvailableDomain.redirectUrl;
                 },
                 loadStoredDomain(){
-                    this.storedDomain = localStorage.getItem('selected_domain');
+                    this.storedDomain = localStorage.getItem(this.localStorageKey);
                     if(this.storedDomain != null){
                         //parse and reset status
                         this.storedDomain = JSON.parse(this.storedDomain);
@@ -363,7 +372,7 @@
                     }
                 },
                 saveDomain(domain){
-                    localStorage.setItem('selected_domain', JSON.stringify(domain));
+                    localStorage.setItem(this.localStorageKey, JSON.stringify(domain));
                 },
                 /*runAllHealthCheck(){
                     for(var i in this.domains){
@@ -408,7 +417,7 @@
                     let hashesMatch = _.find(this.hashes, {hash : this.urlHash});
                     if(hashesMatch != null){
                         for(var i in this.domains){
-                            this.domains[i].url += hashesMatch.relUrl;
+                            this.domains[i].redirectUrl = this.domains[i].url + hashesMatch.relUrl;
                         }
                     }
                 }
