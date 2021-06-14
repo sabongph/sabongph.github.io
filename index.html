@@ -86,6 +86,26 @@
             padding:0 1rem;
             margin-bottom: 1rem;
         }
+        .logo{
+            max-width: 70px;
+            margin:0 auto 1rem;
+        }
+        .logo img{
+            display: block;
+            width: 100%;
+            
+        }
+        .checker-wp{
+            margin:0 10px;
+        }
+        .checker-wait{
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            line-height: 1.4rem;
+        }
+        .checker-status{
+
+        }
     </style>
 </head>
 <body>
@@ -95,32 +115,50 @@
             Loading
         </div>
         <div  v-cloak>
-            <h1>
-                Select Domains
-            </h1> 
-            <div class="disclaimer">
-                Click on any of the yellow boxes that is available.
+            <div class="checker-wp">
+                <div class="logo">
+                    <img src="logo.png" />
+                </div>
+                <div v-show="checkerIterationStatus != 2">
+                    <div class="checker-wait">
+                        Please wait while we are looking for the fastest server..
+                    </div>
+                    <div class="checker-status">
+                        <span v-show="checkerIterationStatus == 0">
+                            <i class="fas fa-spinner fa-spin"></i>
+                        </span>
+                        {{ checkerMessage }}
+                    </div>
+                </div>
+                <div v-show="checkerIterationStatus == 2" class="checker-wait">
+                    <i class="fas fa-exclamation-circle"></i> {{ checkerMessage }}
+                </div>
             </div>
-            <div>
-                <div v-for="domain in domains" :key="domain.name"
-                    class="domain-item-wr">
-                    <a :href="domain.url">
-                        <div class="domain-name">{{ domain.name }}</div>
-                        <div class="health-check"> 
-                            <div v-show="availabilityStatus(domain) == 0">
-                                <i class="fas fa-spinner fa-spin"></i>
-                                Checking link..
+            <div v-if="false">
+                <div class="disclaimer">
+                    No available domains. Please select from the list below.
+                </div>
+                <div>
+                    <div v-for="domain in domains" :key="domain.name"
+                        class="domain-item-wr">
+                        <a :href="domain.url">
+                            <div class="domain-name">{{ domain.name }}</div>
+                            <div class="health-check"> 
+                                <div v-show="availabilityStatus(domain) == 0">
+                                    <i class="fas fa-spinner fa-spin"></i>
+                                    Checking link..
+                                </div>
+                                <div v-show="availabilityStatus(domain) == 1" class="text-success">
+                                    <i class="fas fa-check"></i>
+                                    Available
+                                </div>
+                                <div v-show="availabilityStatus(domain) == 2" class="text-danger">
+                                    <i class="fas fa-times"></i>
+                                    Not Available
+                                </div>
                             </div>
-                            <div v-show="availabilityStatus(domain) == 1" class="text-success">
-                                <i class="fas fa-check"></i>
-                                Available
-                            </div>
-                            <div v-show="availabilityStatus(domain) == 2" class="text-danger">
-                                <i class="fas fa-times"></i>
-                                Not Available
-                            </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div> 
@@ -130,84 +168,90 @@
         window.domains = [
             {
                 name: "SabongInternational.com",
+                domain: "sabonginternational.com",
                 url: "https://sabonginternational.com",
                 health_check: {
                     api: {
-                        url: "https://sabonginternational.com/health",
+                        url: "https://sabonginternational.com/health2",
                         status: 0
                     },
                     static: {
-                        url: "https://static.sabonginternational.com/health.htm",
+                        url: "https://static.sabonginternational.com/health.htm2",
                         status: 0
                     }
                 }
             },
             {
-                name: "SbngInt",
-                url: "https://sabonginternational.com",
+                name: "SbngInt.com",
+                domain: "sbngint.com",
+                url: "https://sbngint.com",
                 health_check: {
                     api: {
-                        url: "https://sabonginternational.com/health",
+                        url: "https://sbngint.com/health2",
                         status: 0
                     },
                     static: {
-                        url: "https://static.sabonginternational.com/health.htm",
+                        url: "https://static.sbngint.com/health.htm2",
                         status: 0
                     }
                 }
             },
             {
                 name: "ColorPerya",
+                domain: "colorperya.com",
                 url: "https://colorperya.com",
                 health_check: {
                     api: {
-                        url: "https://colorperya.com/health",
+                        url: "https://colorperya.com/health2",
                         status: 0
                     },
                     static: {
-                        url: "https://static.colorperya.com/health.htm",
+                        url: "https://static.colorperya.com/health.htm2",
                         status: 0
                     }
                 }
             },
             {
                 name: "PeryaPH.com",
+                domain: "peryaph.com",
                 url: "https://peryaph.com",
                 health_check: {
                     api: {
-                        url: "https://peryaph.com/health",
+                        url: "https://peryaph.com/health2",
                         status: 0
                     },
                     static: {
-                        url: "https://static.peryaph.com/health.htm",
+                        url: "https://static.peryaph.com/health.htm2",
                         status: 0
                     }
                 }
             },
             {
                 name: "PartiPerya.com",
+                domain: "partiperya.com",
                 url: "https://partiperya.com",
                 health_check: {
                     api: {
-                        url: "https://partiperya.com/health",
+                        url: "https://partiperya.com/health2",
                         status: 0
                     },
                     static: {
-                        url: "https://static.partiperya.com/health.htm",
+                        url: "https://static.partiperya.com/health.htm2",
                         status: 0
                     }
                 }
             },
             {
                 name: "Grabmanok.com",
+                domain: "grabmanok.com",
                 url: "https://grabmanok.com",
                 health_check: {
                     api: {
-                        url: "https://grabmanok.com/health",
+                        url: "https://grabmanok.com/health2",
                         status: 0
                     },
                     static: {
-                        url: "https://static.grabmanok.com/health.htm",
+                        url: "https://static.grabmanok.com/health.htm2",
                         status: 0
                     }
                 }
@@ -216,38 +260,133 @@
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue/2.6.14/vue.min.js" integrity="sha512-XdUZ5nrNkVySQBnnM5vzDqHai823Spoq1W3pJoQwomQja+o4Nw0Ew1ppxo5bhF2vMug6sfibhKWcNJsG8Vj9tg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script>
         new Vue({
             el: '#app',
             data: {
                 domains: [],
-                axiosInstance: null
+                axiosInstance: null,
+                statusMessages: {
+                    init: "Initializing",
+                    prev: "Checking your previously loaded server",
+                    searching: "Searching for fastest server",
+                    server: "Checking server #",
+                    found: "Server found. Redirecting..",
+                    failed: "No reachable server found"
+                },
+
+                hashes: [
+                    {hash: '#player', relUrl: '/platform'},
+                    {hash: '#reseller', relUrl: '/reseller'}
+                ],
+                urlHash: null,
+
+                checkerIterationStatus: 0,
+                checkerMessage: '',
+
+                storedDomain: null,
+                firstAvailableDomain: null
             },
             mounted(){
+                this.changeStatus(this.statusMessages.init, 0);
+
                 this.domains = window.domains;
+                this.urlHash = window.location.hash;
                 this.axiosInstance = axios.create({ timeout: 5000 });
-                this.runHealthCheck();
+                this.appendUrlBasedOnHash();
+                this.loadStoredDomain();
+                if(this.storedDomain){
+                    this.domains.unshift(this.storedDomain);
+                }
+                //this.runAllHealthCheck();
+                this.getFirstAvailableDomain();
             },
             methods: {
-                runHealthCheck(){
-                    for(var i in this.domains){
-                        this.sendRequest(this.domains[i].health_check.api.url, i).then((data) => {
-                            this.domains[data.index].health_check.api.status = 1;
-                        }).catch((data) => {
-                            this.domains[data.index].health_check.api.status = 2;
-                        });
+                getFirstAvailableDomain(){
+                    this.firstAvailableDomain = null; //reset 
+                    if(this.storedDomain){
+                        this.changeStatus(this.statusMessages.prev, 0);
+                    }else{
+                        this.changeStatus(this.statusMessages.searching, 0);
+                    }
+                    
 
-                        this.sendRequest(this.domains[i].health_check.static.url, i).then((data) => {
-                            this.domains[data.index].health_check.static.status = 1;
+                    this.checkDomainIsAvailable(0).then((data) => {
+                        this.firstAvailableDomain = this.domains[data.index];
+                        this.changeStatus(this.statusMessages.found, 1);
+                        this.saveDomain(this.firstAvailableDomain);
+                        this.redirectToAvailableDomain();
+                    }).catch(() => {
+                        this.changeStatus(this.statusMessages.failed, 2);
+                    })
+                },
+                checkDomainIsAvailable(i){
+                    if(i >= this.domains.length){
+                        return Promise.reject();
+                    }
+
+                    this.changeStatus(this.statusMessages.server + (i+1), 0);
+
+                    //outer layer check api url
+                    return this
+                        .sendRequest(this.domains[i].health_check.api.url, i)
+                        .then((data) => {
+                            //inner layer check static url
+                            return this.sendRequest(this.domains[data.index].health_check.static.url, data.index);
+
+                        }).then((data) => {
+                            //the available domain is found
+                            return Promise.resolve(data);
+                            
+
                         }).catch((data) => {
-                            this.domains[data.index].health_check.static.status = 2;
+
+                            //failed, go to the next domain
+                            return this.checkDomainIsAvailable(data.index+1);
                         });
+                },
+                changeStatus(message, statusNumber){
+                    this.checkerMessage = message;
+                    this.checkerIterationStatus = statusNumber;
+                },
+                redirectToAvailableDomain(){
+                    window.location.href = this.firstAvailableDomain.url;
+                },
+                loadStoredDomain(){
+                    this.storedDomain = localStorage.getItem('selected_domain');
+                    if(this.storedDomain != null){
+                        //parse and reset status
+                        this.storedDomain = JSON.parse(this.storedDomain);
+                        this.storedDomain.health_check.api.status = 0;
+                        this.storedDomain.health_check.static.status = 0;
                     }
                 },
+                saveDomain(domain){
+                    localStorage.setItem('selected_domain', JSON.stringify(domain));
+                },
+                /*runAllHealthCheck(){
+                    for(var i in this.domains){
+                        this.runHealthCheck(i);
+                    }
+                },
+                runHealthCheck(i){
+                    this.sendRequest(this.domains[i].health_check.api.url, i).then((data) => {
+                        this.domains[data.index].health_check.api.status = 1;
+                    }).catch((data) => {
+                        this.domains[data.index].health_check.api.status = 2;
+                    });
+
+                    this.sendRequest(this.domains[i].health_check.static.url, i).then((data) => {
+                        this.domains[data.index].health_check.static.status = 1;
+                    }).catch((data) => {
+                        this.domains[data.index].health_check.static.status = 2;
+                    });
+                },*/
                 sendRequest(url, index){
-                    let urlWithHash = url + "?t=" + Date.now()
+                    let urlWithHash = url + "?t=" + Date.now();
+                    console.log("request from " + urlWithHash)
                     return this.axiosInstance.get(urlWithHash).then((response) => { 
-                        console.log(urlWithHash, index);
                         return Promise.resolve({ response: response, index: index }); 
                     }).catch((exception) => {
                         return Promise.reject({ exception: exception, index: index });
@@ -262,6 +401,15 @@
                         return 1; //succesful
                     }else{
                         return 2;
+                    }
+                },
+                appendUrlBasedOnHash()
+                {
+                    let hashesMatch = _.find(this.hashes, {hash : this.urlHash});
+                    if(hashesMatch != null){
+                        for(var i in this.domains){
+                            this.domains[i].url += hashesMatch.relUrl;
+                        }
                     }
                 }
             }
