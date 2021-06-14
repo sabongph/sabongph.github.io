@@ -278,7 +278,7 @@
                     prev: "Checking your previously loaded server",
                     searching: "Searching for fastest server",
                     server: "Checking server #",
-                    found: "Server found. Redirecting to ",
+                    found: "Redirecting to server..",
                     failed: "No reachable server found"
                 },
 
@@ -415,12 +415,13 @@
                 appendUrlBasedOnHash()
                 {
                     let hashesMatch = _.find(this.hashes, {hash : this.urlHash});
-                    if(hashesMatch != null){
-                        for(var i in this.domains){
+                
+                    for(var i in this.domains){
+                        if(hashesMatch != null){
                             this.domains[i].redirectUrl = this.domains[i].url + hashesMatch.relUrl;
+                        }else{
+                            this.domains[i].redirectUrl = this.domains[i].url;
                         }
-                    }else{
-                        this.domains[i].redirectUrl = this.domains[i].url;
                     }
                 }
             }
