@@ -283,8 +283,8 @@
                 },
 
                 hashes: [
-                    {hash: '#player', relUrl: '/platform/play'},
-                    {hash: '#reseller', relUrl: '/reseller/transfer'}
+                    {hash: '#player', relUrl: '/platform/login'},
+                    {hash: '#reseller', relUrl: '/reseller/login'}
                 ],
                 urlHash: null,
 
@@ -419,6 +419,8 @@
                         for(var i in this.domains){
                             this.domains[i].redirectUrl = this.domains[i].url + hashesMatch.relUrl;
                         }
+                    }else{
+                        this.domains[i].redirectUrl = this.domains[i].url;
                     }
                 }
             }
